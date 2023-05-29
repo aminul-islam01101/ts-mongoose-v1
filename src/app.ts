@@ -8,8 +8,20 @@ import routes from './app/routes';
 import { mongoDbUrl } from './utils/configs/db';
 import logger from './utils/middleware/logger';
 
-const app: Application = express();
+const app: Application = express();                      
 
+
+
+
+
+
+
+
+
+
+
+
+const x =20;
 // middleware :cors
 app.use(
   cors({

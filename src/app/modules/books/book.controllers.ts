@@ -6,7 +6,7 @@ import { findBooksByGenre } from './book.services';
 
 export const getAllBooksByGenre = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { genre } = req.params;
+    const genre  = req.params.genre;
     const books: IBook[] = await findBooksByGenre(genre);
     sendApiResponse<IBook[]>(res, 200, true, books);
   } catch (error) {
