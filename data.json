@@ -1,0 +1,132 @@
+[
+  {
+    "title": "The Great Gatsby",
+    "author": ["F. Scott Fitzgerald"],
+    "genre": "Classic",
+    "publicationYear": 1925,
+    "publisher": { "name": "Scribner", "location": "New York" },
+    "reviews": [
+      { "user": "JohnDoe", "comment": "A timeless masterpiece!" },
+      { "user": "JaneSmith", "comment": "Captivating story and characters." }
+    ],
+    "rating": 4.8,
+    "price": 12.99
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "author": ["Harper Lee"],
+    "genre": "Classic",
+    "publicationYear": 1960,
+    "publisher": { "name": "J. B. Lippincott & Co.", "location": "New York City" },
+    "reviews": [
+      { "user": "BookLover123", "comment": "A thought-provoking and powerful novel." },
+      { "user": "LiteraryFanatic", "comment": "One of my all-time favorites!" }
+    ],
+    "rating": 4.7,
+    "price": 9.99
+  },
+  {
+    "title": "1984",
+    "author": ["George Orwell"],
+    "genre": "Dystopian",
+    "publicationYear": 1949,
+    "publisher": { "name": "Secker & Warburg", "location": "London" },
+    "reviews": [
+      { "user": "BigBrotherWatcher", "comment": "A chilling portrayal of a totalitarian society." },
+      { "user": "FreedomSeeker", "comment": "An important and relevant book." }
+    ],
+    "rating": 4.6,
+    "price": 8.99
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": ["Jane Austen"],
+    "genre": "Classic",
+    "publicationYear": 1813,
+    "publisher": { "name": "T. Egerton, Whitehall", "location": "London" },
+    "reviews": [
+      { "user": "Bookworm123", "comment": "A delightful and witty novel." },
+      { "user": "LiteratureLover", "comment": "Jane Austen's best work!" }
+    ],
+    "rating": 4.5,
+    "price": 14.99
+  },
+  {
+    "title": "The Catcher in the Rye",
+    "author": ["J. D. Salinger"],
+    "genre": "Coming-of-age",
+    "publicationYear": 1951,
+    "publisher": { "name": "Little, Brown and Company", "location": "Boston" },
+    "reviews": [
+      { "user": "HoldenCaulfield", "comment": "An iconic and relatable book." },
+      { "user": "Reader123", "comment": "A must-read for teenagers." }
+    ],
+    "rating": 4.4,
+    "price": 11.99
+  },
+  {
+    "title": "Harry Potter and the Philosopher's Stone",
+    "author": ["J. K. Rowling"],
+    "genre": "Fantasy",
+    "publicationYear": 1997,
+    "publisher": { "name": "Bloomsbury Publishing", "location": "London" },
+    "reviews": [
+      { "user": "Potterhead", "comment": "The beginning of an incredible journey." },
+      { "user": "MagicEnthusiast", "comment": "Pure magic on every page!" }
+    ],
+    "rating": 4.9,
+    "price": 19.99
+  },
+  {
+    "title": "The Hobbit",
+    "author": ["J. R. R. Tolkien"],
+    "genre": "Fantasy",
+    "publicationYear": 1937,
+    "publisher": { "name": "George Allen & Unwin", "location": "London" },
+    "reviews": [
+      { "user": "MiddleEarthFan", "comment": "A charming and adventurous tale." },
+      { "user": "FantasyReader", "comment": "Tolkien's enchanting storytelling at its best." }
+    ],
+    "rating": 4.7,
+    "price": 15.99
+  },
+  {
+    "title": "The Lord of the Rings",
+    "author": ["J. R. R. Tolkien"],
+    "genre": "Fantasy",
+    "publicationYear": 1954,
+    "publisher": { "name": "George Allen & Unwin", "location": "London" },
+    "reviews": [
+      { "user": "RingBearer", "comment": "Epic and immersive fantasy world." },
+      { "user": "BookDragon", "comment": "A monumental work of literature." }
+    ],
+    "rating": 4.8,
+    "price": 24.99
+  },
+  {
+    "title": "The Alchemist",
+    "author": ["Paulo Coelho"],
+    "genre": "Fiction",
+    "publicationYear": 1988,
+    "publisher": { "name": "HarperOne", "location": "San Francisco" },
+    "reviews": [
+      { "user": "DreamSeeker", "comment": "A beautiful and inspiring book." },
+      { "user": "SoulSearcher", "comment": "Life-changing and thought-provoking." }
+    ],
+    "rating": 4.6,
+    "price": 10.99
+  },
+  {
+    "title": "The Da Vinci Code",
+    "author": ["Dan Brown"],
+    "genre": "Mystery",
+    "publicationYear": 2003,
+    "publisher": { "name": "Doubleday", "location": "New York" },
+    "reviews": [
+      { "user": "CodeBreaker", "comment": "A gripping and fast-paced thriller." },
+      { "user": "MysteryLover", "comment": "Couldn't put it down!" }
+    ],
+    "rating": 4.4,
+    "price": 13.99
+  }
+]
