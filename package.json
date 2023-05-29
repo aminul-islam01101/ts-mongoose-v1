@@ -12,7 +12,7 @@
     "prettier:fix": "prettier --write .",
     "lint-prettier-fix": "yarn lint:fix && yarn prettier:fix",
     "lint-prettier-check": "yarn lint:check && yarn prettier:check",
-    "lint-prettier": "yarn lint-prettier-fix && yarn lint-prettier-check",
+    "lint-prettier": "yarn lint:check && yarn prettier:check",
     "prod": "NODE_ENV=production nodemon index.js"
   },
   "dependencies": {

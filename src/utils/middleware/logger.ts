@@ -8,6 +8,6 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
     }`.bgYellow.black
   );
   next();
-};
+};       
 
 export default logger;
