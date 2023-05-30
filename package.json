@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "console-ninja ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
-    "ninja":"console-ninja yarn ts-node src/index.ts",
+    "ninja": "console-ninja yarn ts-node src/index.ts",
     "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts . --format=node_modules/eslint-formatter-pretty",
     "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "lint:fix": "eslint . --fix --format=node_modules/eslint-formatter-pretty",
