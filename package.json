@@ -1,18 +1,19 @@
 {
   "name": "boilerplate",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "node index.js",
-    "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
+    "dev": "console-ninja ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "ninja":"console-ninja yarn ts-node src/index.ts",
+    "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts . --format=node_modules/eslint-formatter-pretty",
     "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "lint:fix": "eslint . --fix",
+    "lint:fix": "eslint . --fix --format=node_modules/eslint-formatter-pretty",
     "prettier:fix": "prettier --write .",
     "lint-prettier-fix": "yarn lint:fix && yarn prettier:fix",
-    "lint-prettier-check": "yarn lint:check && yarn prettier:check",
-    "lint-prettier": "yarn lint-prettier-fix && yarn prettier:check",
+    "lint-prettier-check": "yarn lint:check && yarn prettier:check --formatter=node_modules/eslint-formatter-pretty",
+    "lint-prettier": "yarn lint-prettier-fix && yarn prettier:check --formatter=node_modules/eslint-formatter-pretty",
     "prod": "NODE_ENV=production nodemon index.js"
   },
   "lint-staged": {

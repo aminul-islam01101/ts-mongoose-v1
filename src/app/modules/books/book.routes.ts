@@ -3,6 +3,6 @@ import { getAllBooksByGenre } from './book.controllers';
 
 const router = express.Router();
 
-router.get('/:genre', getAllBooksByGenre);
+router.get('/genre-name/:genre', getAllBooksByGenre);
 
 export default router;
