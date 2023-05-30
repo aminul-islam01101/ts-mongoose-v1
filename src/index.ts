@@ -1,7 +1,7 @@
 import colors from 'colors';
 import 'dotenv/config';
-import app from './src/app';
-import { connectDataBase as connect } from './src/utils/configs/db';
+import app from './app';
+import { connectDataBase as connect } from './utils/configs/db';
 
 const port: number = parseInt(process.env.PORT || '8080');
 
