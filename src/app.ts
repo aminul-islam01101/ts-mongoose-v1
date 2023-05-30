@@ -6,9 +6,12 @@ import session from 'express-session';
 
 import routes from './app/routes';
 import { mongoDbUrl } from './utils/configs/db';
-import logger from './utils/middleware/logger';
+
+import { logger, requestLogger } from './utils/middleware/logger';
 
 const app: Application = express();
+logger.debug('first');
+console.log('first'.yellow);
 
 // middleware :cors
 app.use(
@@ -18,7 +21,7 @@ app.use(
     credentials: true,
   })
 );
-app.use([express.json(), express.urlencoded({ extended: true }), logger]);
+app.use([express.json(), express.urlencoded({ extended: true }), requestLogger]);
 
 // configure session
 app.use(
