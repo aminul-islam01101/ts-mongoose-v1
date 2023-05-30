@@ -9,6 +9,8 @@ import { mongoDbUrl } from './utils/configs/db';
 import logger from './utils/middleware/logger';
 
 const app: Application = express();
+const hello = 'hello';
+console.log(hello);
 
 // middleware :cors
 app.use(

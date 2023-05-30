@@ -28,7 +28,7 @@
     "no-unused-vars": "error",
     "linebreak-style": 0,
     "no-underscore-dangle": "off",
-    "no-unused-expressions": ["warn", { "allowShortCircuit": true, "allowTernary": true }],
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
     "import/prefer-default-export": 0,
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/no-misused-promises": [
