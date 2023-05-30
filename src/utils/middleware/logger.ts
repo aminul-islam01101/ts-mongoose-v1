@@ -3,9 +3,11 @@ import colors from 'colors';
 
 const logger = (req: Request, res: Response, next: NextFunction) => {
   console.log(
-    `Req-method:${req.method} - Req-url:${req.url} - Time-of-req: ${
-      new Date().toLocaleTimeString().underline
-    }`.bgYellow.black
+    colors.bgYellow.black(
+      `Req-method:${req.method} - Req-url:${req.url} - Time-of-req: ${
+        new Date().toLocaleTimeString().underline
+      }`
+    )
   );
   next();
 };
