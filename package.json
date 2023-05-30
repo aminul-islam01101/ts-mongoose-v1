@@ -14,10 +14,8 @@
     "lint-prettier-check": "yarn lint:check && yarn prettier:check",
     "lint-prettier": "yarn lint-prettier-fix && yarn prettier:check",
     "prod": "NODE_ENV=production nodemon index.js"
-  
   },
   "lint-staged": {
-  
     "src/**/*.ts": "yarn lint-prettier"
   },
   "dependencies": {
