@@ -6,7 +6,7 @@
     "node": true
   },
   "globals": {
-    "process":"readonly"
+    "process": "readonly"
   },
   "extends": [
     "airbnb-base",
@@ -35,7 +35,7 @@
     "import/prefer-default-export": 0,
 
     "no-undef": "error",
-    
+
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@typescript-eslint/unbound-method": "off",
     "consistent-return": 0,
@@ -48,7 +48,11 @@
       }
     ],
     "radix": ["error", "as-needed"],
-     "spaced-comment": ["error", "always", { "markers": ["!","*","?","$","#","@","&","%", "g"] }],
+    "spaced-comment": [
+      "error",
+      "always",
+      { "markers": ["!", "*", "?", "$", "#", "@", "&", "%", "g"] }
+    ],
 
     "prettier/prettier": [
       "warn",

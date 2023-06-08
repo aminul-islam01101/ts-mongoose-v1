@@ -1,10 +1,10 @@
 import { Response } from 'express';
 
-interface ApiResponse<T> {
+type ApiResponse<T> = {
   success: boolean;
   data?: T;
   error?: T;
-}
+};
 
 export const sendApiResponse = <T>(
   res: Response,
