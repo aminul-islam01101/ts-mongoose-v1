@@ -14,6 +14,8 @@ const createUser = async (user: TUser): Promise<TUser | null> => {
 
   user.id = id;
 
+  logger.warn('rest', { f: path.basename(__filename), l: 0 });
+
   if (!user.password) {
     user.password = configs.default_user_pass as string;
   }
