@@ -4,14 +4,18 @@ import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import session from 'express-session';
 
+import httpStatus from 'http-status';
+import path from 'path';
 import routes from './app/routes';
 import { mongoDbUrl } from './utils/configs/db';
 
-import { logger, requestLogger } from './utils/middleware/logger';
+import globalErrorHandler from './utils/middlewares/globalErrorHandler';
+import { requestLogger } from './utils/middlewares/requestLogger';
+import { ln, logger } from './utils/shared/logger';
 
 const app: Application = express();
-logger.debug('first');
-console.log('first'.yellow);
+
+logger.warn('test Log', { f: path.basename(__filename), l: ln() });
 
 // middleware :cors
 app.use(
@@ -39,11 +43,29 @@ app.use(
 );
 app.set('trust proxy', 1);
 
-// route base
-app.use(routes);
+//& route base
+// home route
+app.get('/', (_req, res) => {
+  res.send('test server is running');
+});
+// business routes
+app.use('/api/v1', routes);
+
+// global error handler
+app.use(globalErrorHandler);
 // wrong path error route
-app.use((_req: Request, res: Response) => {
-  res.status(404).send('404 error! url does not exist');
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(httpStatus.NOT_FOUND).json({
+    success: false,
+    message: '404! Url doest not exist',
+    errorMessages: [
+      {
+        path: req.originalUrl,
+        message: '404! Url doest not exist',
+      },
+    ],
+  });
+  next();
 });
 
 // server error route

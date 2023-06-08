@@ -1,14 +1,20 @@
 import express from 'express';
-import bookRouter from './modules/books/book.routes';
+import { booksRoutes } from './modules/books/book.routes';
+import { UserRoutes } from './modules/users/user.routes';
 
 const routes = express.Router();
-// home route
-routes.get('/', (_req, res) => {
-  res.send('test server is running');
-});
 
-// business routes
+const moduleRoutes = [
+  {
+    path: '/users',
+    route: UserRoutes,
+  },
+  {
+    path: '/books',
+    route: booksRoutes,
+  },
+];
 
-routes.use('/api/v1/books', bookRouter);
+moduleRoutes.forEach((route) => routes.use(route.path, route.route));
 
 export default routes;

@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "E:\\Code house\\p Hero-6\\level-2\\mongoose+ts-nosql\\boilerplate\\v1\\logs\\winston\\successes\\.6437f176eb10ba64788c7a53cac98835e71cecd6-audit.json",
+    "files": [
+        {
+            "date": 1686065884079,
+            "name": "E:\\Code house\\p Hero-6\\level-2\\mongoose+ts-nosql\\boilerplate\\v1\\logs\\winston\\successes\\HM-2023-06-06-21-success.log",
+            "hash": "dd68e60f7cdada6f2afabd27472009a08069708fe7d918792d1d88308e9733f4"
+        }
+    ],
+    "hashType": "sha256"
+}

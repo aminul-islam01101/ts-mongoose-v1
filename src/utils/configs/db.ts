@@ -1,7 +1,6 @@
-import consola from 'consola';
-
 import mongoose from 'mongoose';
-import configs from './envConfigs';
+import { errorLogger } from '../shared/logger';
+import { configs } from './envConfigs';
 
 mongoose.set('strictQuery', true);
 
@@ -10,9 +9,12 @@ const mongoDbUrl = configs.databaseUrl;
 const connectDataBase = async () => {
   try {
     await mongoose.connect(configs.databaseUrl as string);
-    consola.success('🎯 Successfully database connected 🌹😊');
+    console.log(
+      `
+database connection successful 🌹`.cyan
+    );
   } catch (err) {
-    process.exit(1);
+    errorLogger.error('Failed to connect to database', err);
   }
 };
 

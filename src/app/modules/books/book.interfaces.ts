@@ -1,6 +1,6 @@
-import { Document } from 'mongoose';
+import { Model } from 'mongoose';
 
-interface IBook extends Document {
+export type BookTypes = {
   title: string;
   author: string[];
   genre: string;
@@ -15,6 +15,6 @@ interface IBook extends Document {
   }[];
   rating: number;
   price: string;
-}
+};
 
-export { IBook };
+export type BookModel = Model<BookTypes, Record<string, unknown>>;

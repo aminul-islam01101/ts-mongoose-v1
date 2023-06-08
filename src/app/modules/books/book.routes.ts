@@ -5,4 +5,4 @@ const router = express.Router();
 
 router.get('/genre-name/:genre', getAllBooksByGenre);
 
-export default router;
+export const booksRoutes = router;

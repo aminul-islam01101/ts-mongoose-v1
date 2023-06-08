@@ -1,8 +1,8 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-import { IBook } from './book.interfaces';
+import { BookModel, BookTypes } from './book.interfaces';
 
-const bookSchema: Schema<IBook> = new Schema<IBook>({
+const bookSchema: Schema<BookTypes> = new Schema<BookTypes>({
   title: { type: String, required: true },
   author: { type: [String], required: true },
   genre: { type: String, required: true },
@@ -21,6 +21,4 @@ const bookSchema: Schema<IBook> = new Schema<IBook>({
   price: { type: String, required: true },
 });
 
-const BookModel = mongoose.model<IBook>('Book', bookSchema);
-
-export { BookModel, bookSchema };
+export const Book = model<BookTypes, BookModel>('Book', bookSchema);
