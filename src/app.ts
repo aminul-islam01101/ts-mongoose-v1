@@ -72,4 +72,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 
+console.log(x)
+
+                    
 export default app;
