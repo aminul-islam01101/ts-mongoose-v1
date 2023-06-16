@@ -8,4 +8,3 @@ export type TGenericErrorResponse = {
   message: string;
   errorMessages: TGenericErrorMessage[];
 };
-

@@ -46,17 +46,17 @@ app.use(
 app.set('trust proxy', 1);
 
 //& route base
-//# home route
+// home route
 app.get('/', (_req, res) => {
   res.send('test server is running');
 });
-//# business routes
+// business routes
 app.use('/api/v1', routes);
 
-//$ global error handler
+//& error handler
+// global error handler
 app.use(globalErrorHandler);
-
-//$ wrong path error route
+// wrong path error route
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(httpStatus.NOT_FOUND).json({
     success: false,
@@ -71,8 +71,4 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-
-console.log(x)
-
-                    
 export default app;

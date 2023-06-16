@@ -36,6 +36,7 @@ const startServer = async () => {
     if (server) {
       server.close();
       console.log('server is closed'.red);
+
       errorLogger.error(error);
       process.exit(1);
     } else {

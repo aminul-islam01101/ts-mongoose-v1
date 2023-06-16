@@ -1,11 +1,12 @@
 {
-  "name": "nosql-hamba-hut-server",
+  "name": "boilerplate",
   "version": "1.0.0",
   "main": "src/server.ts",
   "license": "MIT",
   "scripts": {
     "dev": "console-ninja ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
+    "ninja": "console-ninja yarn ts-node src/server.ts",
     "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts . --format=node_modules/eslint-formatter-pretty",
     "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "lint:fix": "eslint . --fix --format=node_modules/eslint-formatter-pretty",
