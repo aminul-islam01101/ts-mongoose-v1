@@ -8,9 +8,3 @@ export type TGenericErrorResponse = {
   message: string;
   errorMessages: TGenericErrorMessage[];
 };
-export type TApiResponse<T> = {
-  statusCode: number;
-  success: boolean;
-  message?: string | null;
-  data?: T | null;
-};

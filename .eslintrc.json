@@ -53,6 +53,8 @@
       "always",
       { "markers": ["!", "*", "?", "$", "#", "@", "&", "%", "g"] }
     ],
+    
+    
 
     "prettier/prettier": [
       "warn",
