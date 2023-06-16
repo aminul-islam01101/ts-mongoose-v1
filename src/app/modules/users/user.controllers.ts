@@ -29,8 +29,34 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+//% get  single user
+const getSingleUser = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await UserServices.getSingleUser(id);
+
+  sendResponse<TUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User retrieved successfully !',
+    data: result,
+  });
+});
+//% get  single user
+const deleteSingleUser = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await UserServices.deleteSingleUser(id);
+
+  sendResponse<TUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `${!result ? 'Nothing to delete' : 'User deleted successfully !'}`,
+    data: result,
+  });
+});
 
 export const UserControllers = {
   createUser,
   getAllUsers,
+  getSingleUser,
+  deleteSingleUser,
 };

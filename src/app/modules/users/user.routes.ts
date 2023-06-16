@@ -12,6 +12,11 @@ router.post(
   zodValidator(UserValidation.createUserZodSchema),
   UserControllers.createUser
 );
+router
+  .route('/:id')
+  .get(UserControllers.getSingleUser)
+  // .patch(productController.updateProductById)
+  .delete(UserControllers.deleteSingleUser);
 router.get('/', UserControllers.getAllUsers);
 
 //% formate
@@ -24,8 +29,4 @@ router.get('/', UserControllers.getAllUsers);
 
 // router.route('/').get(productController.getProducts).post(productController.createProduct);
 
-// router
-//   .route('/:id')
-//   .patch(productController.updateProductById)
-//   .delete(productController.deleteProductById);
 export const UserRoutes = router;
