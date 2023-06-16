@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate",
+  "name": "nosql-hamba-hut-server",
   "version": "1.0.0",
   "main": "src/server.ts",
   "license": "MIT",

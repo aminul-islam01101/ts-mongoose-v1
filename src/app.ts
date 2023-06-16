@@ -11,7 +11,6 @@ import { mongoDbUrl } from './utils/configs/db';
 
 import globalErrorHandler from './utils/middlewares/globalErrorHandler';
 import { requestLogger } from './utils/middlewares/requestLogger';
-import { HandleApiError } from './utils/shared/errors/handleApiError';
 import { ln, logger } from './utils/shared/logger';
 
 const app: Application = express();
@@ -45,7 +44,7 @@ app.use(
 );
 app.set('trust proxy', 1);
 
-//& route base
+//# route base
 // home route
 app.get('/', (_req, res) => {
   res.send('test server is running');
@@ -53,7 +52,7 @@ app.get('/', (_req, res) => {
 // business routes
 app.use('/api/v1', routes);
 
-//& error handler
+//# error handler
 // global error handler
 app.use(globalErrorHandler);
 // wrong path error route
