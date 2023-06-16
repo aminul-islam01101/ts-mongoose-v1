@@ -1,9 +1,5 @@
-/* eslint-disable no-param-reassign */
-
 import path from 'path';
-import { configs } from '../../../utils/configs/envConfigs';
 import { logger } from '../../../utils/shared/logger';
-// import HandleApiError from '../../../utils/shared/errors/handleApiError';
 
 import { TUser } from './user.interfaces';
 import { User } from './user.models';
@@ -21,7 +17,13 @@ const createUser = async (user: TUser): Promise<TUser | null> => {
 
   return createdUser;
 };
+const getAllUsers = async (): Promise<TUser[] | null> => {
+  const allUsers = await User.find({});
+
+  return allUsers;
+};
 
 export const UserServices = {
   createUser,
+  getAllUsers,
 };

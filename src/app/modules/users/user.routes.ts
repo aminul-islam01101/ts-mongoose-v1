@@ -12,6 +12,7 @@ router.post(
   zodValidator(UserValidation.createUserZodSchema),
   UserControllers.createUser
 );
+router.get('/', UserControllers.getAllUsers);
 
 //% formate
 // router.route('/create-user',).post(
