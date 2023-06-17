@@ -1,7 +1,7 @@
 import express from 'express';
 
-import { UserRoutes } from './modules/users/user.routes';
 import { CowRoutes } from './modules/cows/cow.routes';
+import { UserRoutes } from './modules/users/user.routes';
 
 const routes = express.Router();
 

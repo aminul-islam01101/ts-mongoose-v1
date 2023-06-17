@@ -1,20 +1,20 @@
 import mongoose from 'mongoose';
 import { TGenericErrorMessage } from '../types/errorTypes';
 
-const handleCastError = (error: mongoose.Error.CastError) => {
+const handleMissingSchemaError = (error: mongoose.Error.MissingSchemaError) => {
   const errors: TGenericErrorMessage[] = [
     {
-      path: error.path,
-      message: 'Invalid Id',
+      path: error.message.split('for ')[1],
+      message: error.message,
     },
   ];
 
   const statusCode = 400;
   return {
     statusCode,
-    errorName: 'Cast Error',
+    errorName: error.name,
     errorMessages: errors,
   };
 };
 
-export default handleCastError;
+export default handleMissingSchemaError;

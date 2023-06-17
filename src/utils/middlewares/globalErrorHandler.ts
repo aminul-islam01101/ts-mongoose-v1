@@ -8,6 +8,7 @@ import { ZodError } from 'zod';
 import { configs } from '../configs/envConfigs';
 import { HandleApiError } from '../shared/errors/handleApiError';
 import handleCastError from '../shared/errors/handleCastError';
+import handleMissingSchemaError from '../shared/errors/handleMissingSchemaError';
 import handleValidationError from '../shared/errors/handleValidationError';
 import handleZodError from '../shared/errors/handleZodError';
 import { errorLogger } from '../shared/logger';
@@ -22,35 +23,41 @@ const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   }
 
   let statusCode = 500;
-  let message = 'Something went wrong !';
+  let errorName = 'Something went wrong !';
   let errorMessages: TGenericErrorMessage[] = [];
 
   // mongoose validation error handler
   if (error?.name === 'ValidationError') {
     const simplifiedError = handleValidationError(error);
     statusCode = simplifiedError.statusCode;
-    message = simplifiedError.message;
+    errorName = simplifiedError.errorName;
     errorMessages = simplifiedError.errorMessages;
 
     // zodValidator error handler
   } else if (error instanceof ZodError) {
     const simplifiedError = handleZodError(error);
     statusCode = simplifiedError.statusCode;
-    message = simplifiedError.message;
+    errorName = simplifiedError.errorName;
     errorMessages = simplifiedError.errorMessages;
 
     // handleCastError error handler
   } else if (error?.name === 'CastError') {
     const simplifiedError = handleCastError(error);
     statusCode = simplifiedError.statusCode;
-    message = simplifiedError.message;
+    errorName = simplifiedError.errorName;
+    errorMessages = simplifiedError.errorMessages;
+  } else if (error?.name === 'MissingSchemaError') {
+    // res.status(200).json({error})
+    const simplifiedError = handleMissingSchemaError(error);
+    statusCode = simplifiedError.statusCode;
+    errorName = simplifiedError.errorName;
     errorMessages = simplifiedError.errorMessages;
   }
 
   // api error handler
   else if (error instanceof HandleApiError) {
     statusCode = error?.statusCode;
-    message = error.message;
+    errorName = error.message;
     errorMessages = error?.message
       ? [
           {
@@ -61,7 +68,7 @@ const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
       : [];
     // node default error handler
   } else if (error instanceof Error) {
-    message = error?.message;
+    errorName = error?.message;
     errorMessages = error?.message
       ? [
           {
@@ -74,7 +81,7 @@ const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   // error response provider
   res.status(statusCode).json({
     success: false,
-    message,
+    errorName,
     errorMessages,
     stack: configs.env !== 'production' ? error?.stack : undefined,
   });

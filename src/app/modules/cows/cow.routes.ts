@@ -12,12 +12,14 @@ const router = express.Router();
 //   .patch(zodValidator(UserValidations.updateUserZodSchema), UserControllers.updateUser)
 //   .delete(UserControllers.deleteUser);
 
+router.post('/', zodValidator(CowValidations.createCowZodSchema), CowControllers.createCow);
 router
-  .route('/')
-  .post(zodValidator(CowValidations.createCowZodSchema), CowControllers.createCow)
-  .get(CowControllers.getAllCows);
+  .route('/:id')
+  .get(CowControllers.getSingleCow)
+  .patch(zodValidator(CowValidations.updateCowZodSchema), CowControllers.updateCow)
+  .delete(CowControllers.deleteCow);
 
-// router.post('/', zodValidator(CowValidations.createCowZodSchema), CowControllers.createCow);
+router.get('/', CowControllers.getAllCows);
 // router
 //   .route('/:id')
 //   .get(UserControllers.getSingleUser)

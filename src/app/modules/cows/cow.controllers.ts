@@ -31,55 +31,55 @@ const getAllCows = catchAsync(async (req: Request, res: Response) => {
   sendResponse<TCow[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Cows retrieved successfully !',
+    message: `${!result.data.length ? 'No Cow found' : 'Cow retrieved successfully !'}`,
     meta: result.meta,
     data: result.data,
   });
 });
-// //% get  single user
-// const getSingleUser = catchAsync(async (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   const result = await CowServices.getSingleUser(id);
+// //% get  single cow
+const getSingleCow = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await CowServices.getSingleCow(id);
 
-//   sendResponse<TCow>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'User retrieved successfully !',
-//     data: result,
-//   });
-// });
-// //% update  single user
-// const updateUser = catchAsync(async (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   const updatedData = req.body as Partial<TCow>;
+  sendResponse<TCow>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `${!result ? 'No Cow found' : 'Cow retrieved successfully !'}`,
+    data: result,
+  });
+});
+// //% update  single Cow
+const updateCow = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const updatedData = req.body as Partial<TCow>;
 
-//   const result = await CowServices.updateUser(id, updatedData);
+  const result = await CowServices.updateCow(id, updatedData);
 
-//   sendResponse<TCow>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'User updated successfully !',
-//     data: result,
-//   });
-// });
+  sendResponse<TCow>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Cow updated successfully !',
+    data: result,
+  });
+});
 
-// //% delete  single user
-// const deleteUser = catchAsync(async (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   const result = await CowServices.deleteUser(id);
+// //% delete  single cow
+const deleteCow = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await CowServices.deleteCow(id);
 
-//   sendResponse<TCow>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: `${!result ? 'Nothing to delete' : 'User deleted successfully !'}`,
-//     data: result,
-//   });
-// });
+  sendResponse<TCow>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `${!result ? 'Nothing to delete' : 'Cow deleted successfully !'}`,
+    data: result,
+  });
+});
 
 export const CowControllers = {
   createCow,
   getAllCows,
-  // getSingleUser,
-  // updateUser,
-  // deleteUser,
+  getSingleCow,
+  updateCow,
+  deleteCow,
 };

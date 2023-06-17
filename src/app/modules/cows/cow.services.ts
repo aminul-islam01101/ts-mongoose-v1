@@ -62,58 +62,57 @@ const getAllCows = async (
     data: result,
   };
 };
-// //# get a user
-// const getSingleUser = async (id: string): Promise<TCow | null> => {
-//   const SingleUser = await User.findById(id);
+// //# get a Cow
+const getSingleCow = async (id: string): Promise<TCow | null> => {
+  const SingleUser = await Cow.findById(id).populate('seller');
+  return SingleUser;
+};
 
-//   return SingleUser;
-// };
+// //# update a Cow
+const updateCow = async (id: string, payload: Partial<TCow>): Promise<TCow | null> => {
+  const isExist = await Cow.findOne({ id });
 
-// //# update a user
-// const updateUser = async (id: string, payload: Partial<TCow>): Promise<TCow | null> => {
-//   const isExist = await User.findOne({ id });
+  if (!isExist) {
+    throw new HandleApiError(httpStatus.NOT_FOUND, 'Cow not found !');
+  }
 
-//   if (!isExist) {
-//     throw new HandleApiError(httpStatus.NOT_FOUND, 'User not found !');
-//   }
+  // const { name, ...cowData } = payload;
 
-//   const { name, ...userData } = payload;
+  // const updatedCowData: Partial<TCow> = { ...cowData };
 
-//   const updatedUserData: Partial<TCow> = { ...userData };
+  // if (updatedCowData.phoneNumber !== undefined) {
+  //   const isPhoneExist = await Cow.findOne({ phoneNumber: updatedCowData.phoneNumber });
+  //   if (isPhoneExist) {
+  //     throw new HandleApiError(httpStatus.BAD_REQUEST, 'This phone number is already exist !');
+  //   }
+  // }
 
-//   if (updatedUserData.phoneNumber !== undefined) {
-//     const isPhoneExist = await User.findOne({ phoneNumber: updatedUserData.phoneNumber });
-//     if (isPhoneExist) {
-//       throw new HandleApiError(httpStatus.BAD_REQUEST, 'This phone number is already exist !');
-//     }
-//   }
+  // dynamically handling
 
-//   // dynamically handling
+  // if (name && Object.keys(name).length > 0) {
+  //   Object.keys(name).forEach((key) => {
+  //     const nameKey = `name.${key}` as keyof Partial<TCow>;
+  //     (updatedUserData as any)[nameKey] = name[key as keyof typeof name];
+  //   });
+  // }
 
-//   if (name && Object.keys(name).length > 0) {
-//     Object.keys(name).forEach((key) => {
-//       const nameKey = `name.${key}` as keyof Partial<TCow>;
-//       (updatedUserData as any)[nameKey] = name[key as keyof typeof name];
-//     });
-//   }
+  const result = await Cow.findOneAndUpdate({ id }, payload, {
+    new: true,
+  });
+  return result;
+};
+// //# delete a Cow
+const deleteCow = async (id: string): Promise<TCow | null> => {
+  const SingleCow = await Cow.findByIdAndDelete(id);
 
-//   const result = await User.findOneAndUpdate({ id }, updatedUserData, {
-//     new: true,
-//   });
-//   return result;
-// };
-// //# delete a user
-// const deleteUser = async (id: string): Promise<TCow | null> => {
-//   const SingleUser = await User.findByIdAndDelete(id);
-
-//   return SingleUser;
-// };
+  return SingleCow;
+};
 
 export const CowServices = {
   createCow,
   getAllCows,
-  // getAllUsers,
-  // getSingleUser,
-  // updateUser,
-  // deleteUser,
+  getSingleCow,
+
+  updateCow,
+  deleteCow,
 };

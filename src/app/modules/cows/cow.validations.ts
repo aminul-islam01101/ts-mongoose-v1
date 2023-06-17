@@ -25,44 +25,24 @@ const createCowZodSchema = z.object({
   }),
 });
 
-// const updateUserZodSchema = z
-//   .object({
-//     body: z
-//       .object({
-//         password: z.string().min(6, 'Password must be at least 6 characters long').optional(),
-//         role: z.enum(['seller', 'buyer'], {
-//           required_error: 'Role is required',
-//         }),
-//         name: z
-//           .object({
-//             firstName: z.string().optional(),
-//             lastName: z.string().optional(),
-//           })
-//           .optional(),
-//         phoneNumber: z
-//           .string()
-//           .min(11, 'Phone number must be 11 digits.')
-//           .max(11, 'Phone number must be 11 digits.')
-//           .optional(),
-//         address: z.string().optional(),
-//         budget: z.number().optional(),
-//         income: z
-//           .number()
-//           .refine((value) => value === 0, 'Invalid income value')
-//           .optional(),
-//       })
-//       .optional(),
-//   })
-//   .refine(
-//     (data) =>
-//       (data.body?.role === 'buyer' && data.body?.budget !== undefined && data.body.budget > 0) ||
-//       (data.body?.role === 'seller' && (data.body?.budget === undefined || data.body.budget === 0)),
-//     {
-//       message: 'Invalid budget value',
-//     }
-//   );
+const updateCowZodSchema = z.object({
+  body: z.object({
+    name: z.string().optional(),
+    age: z.number().optional(),
+    price: z.number().optional(),
+    location: z.enum([...location] as [string, ...string[]]).optional(),
+    breed: z.enum([...breed] as [string, ...string[]]).optional(),
+    weight: z.number().optional(),
+    label: z
+      .enum([...label] as [string, ...string[]])
+      .default('for sale')
+      .optional(),
+    category: z.enum([...category] as [string, ...string[]]).optional(),
+    seller: z.string().optional(),
+  }),
+});
 
 export const CowValidations = {
   createCowZodSchema,
-  // updateUserZodSchema,
+  updateCowZodSchema,
 };
