@@ -41,10 +41,25 @@ const getSingleUser = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-//% get  single user
-const deleteSingleUser = catchAsync(async (req: Request, res: Response) => {
+//% update  single user
+const updateUser = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await UserServices.deleteSingleUser(id);
+  const updatedData = req.body as Partial<TUser>;
+
+  const result = await UserServices.updateUser(id, updatedData);
+
+  sendResponse<TUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User updated successfully !',
+    data: result,
+  });
+});
+
+//% delete  single user
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await UserServices.deleteUser(id);
 
   sendResponse<TUser>(res, {
     statusCode: httpStatus.OK,
@@ -58,5 +73,6 @@ export const UserControllers = {
   createUser,
   getAllUsers,
   getSingleUser,
-  deleteSingleUser,
+  updateUser,
+  deleteUser,
 };

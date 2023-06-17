@@ -1,23 +1,18 @@
 import express from 'express';
 
 import zodValidator from '../../../utils/middlewares/zodValidator';
-
-import { UserControllers } from './user.controllers';
-import { UserValidations } from './user.validations';
+import { CowControllers } from './cow.controllers';
+import { CowValidations } from './cow.validations';
 
 const router = express.Router();
 
-router.post(
-  '/auth/signup',
-  zodValidator(UserValidations.createUserZodSchema),
-  UserControllers.createUser
-);
-router
-  .route('/:id')
-  .get(UserControllers.getSingleUser)
-  .patch(zodValidator(UserValidations.updateUserZodSchema), UserControllers.updateUser)
-  .delete(UserControllers.deleteUser);
-router.get('/', UserControllers.getAllUsers);
+router.post('/', zodValidator(CowValidations.createCowZodSchema), CowControllers.createCow);
+// router
+//   .route('/:id')
+//   .get(UserControllers.getSingleUser)
+//   .patch(zodValidator(UserValidation.updateUserZodSchema), UserControllers.updateUser)
+//   .delete(UserControllers.deleteUser);
+// router.get('/', UserControllers.getAllUsers);
 
 //% formate
 // router.route('/create-user',).post(
@@ -29,4 +24,4 @@ router.get('/', UserControllers.getAllUsers);
 
 // router.route('/').get(productController.getProducts).post(productController.createProduct);
 
-export const UserRoutes = router;
+export const CowRoutes = router;

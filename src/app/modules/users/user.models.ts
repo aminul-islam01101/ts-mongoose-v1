@@ -52,6 +52,7 @@ userSchema.pre('save', async function preSaveHook(next: CallbackWithoutResultAnd
   const User = this.constructor as UserModel;
   const isExist = await User.findOne({
     phoneNumber: this.phoneNumber,
+    role: this.role,
   });
   if (isExist) {
     throw new HandleApiError(httpStatus.CONFLICT, 'phoneNumber is already exist!');
