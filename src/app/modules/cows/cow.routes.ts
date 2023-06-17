@@ -6,7 +6,18 @@ import { CowValidations } from './cow.validations';
 
 const router = express.Router();
 
-router.post('/', zodValidator(CowValidations.createCowZodSchema), CowControllers.createCow);
+// router
+//   .route('/:id')
+//   .get(UserControllers.getSingleUser)
+//   .patch(zodValidator(UserValidations.updateUserZodSchema), UserControllers.updateUser)
+//   .delete(UserControllers.deleteUser);
+
+router
+  .route('/')
+  .post(zodValidator(CowValidations.createCowZodSchema), CowControllers.createCow)
+  .get(CowControllers.getAllCows);
+
+// router.post('/', zodValidator(CowValidations.createCowZodSchema), CowControllers.createCow);
 // router
 //   .route('/:id')
 //   .get(UserControllers.getSingleUser)

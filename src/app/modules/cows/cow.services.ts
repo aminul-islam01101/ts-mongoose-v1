@@ -1,14 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import httpStatus from 'http-status';
 
-import path from 'path';
-import { TCow } from './cow.interfaces';
+import { TCow, TCowFilters } from './cow.interfaces';
 import { Cow } from './cow.models';
 
 import { HandleApiError } from '../../../utils/shared/errors/handleApiError';
-import { logger } from '../../../utils/shared/logger';
+import { searchFilterCalculator } from '../../../utils/shared/helpers/searchAndFilter';
+import {
+  calculatePagination,
+  sortConditionSetter,
+} from '../../../utils/shared/paginations/pagination.calculator';
+import { TPaginationOptions } from '../../../utils/shared/types/paginationTypes';
+import { TGenericResponse } from '../../../utils/shared/types/responseTypes';
 import { TUser } from '../users/user.interfaces';
 import { User } from '../users/user.models';
+import { cowSearchableFields } from './cow.constant';
 
 //# create a user
 const createCow = async (cow: TCow): Promise<TCow | null> => {
@@ -32,12 +38,30 @@ const createCow = async (cow: TCow): Promise<TCow | null> => {
 
   return createdCow;
 };
-// //# get all users
-// const getAllUsers = async (): Promise<TCow[] | null> => {
-//   const allUsers = await User.find({});
+// //# get all cows
+const getAllCows = async (
+  filters: TCowFilters,
+  paginationOptions: Partial<TPaginationOptions>
+): Promise<TGenericResponse<TCow[]>> => {
+  const { searchTerm, ...filtersData } = filters;
+  const { page, limit, skip, sortBy, sortOrder } = calculatePagination(paginationOptions);
 
-//   return allUsers;
-// };
+  const whereConditions = searchFilterCalculator(searchTerm, cowSearchableFields, filtersData);
+  const sortConditions = sortConditionSetter(sortBy, sortOrder);
+
+  const result = await Cow.find(whereConditions).sort(sortConditions).skip(skip).limit(limit);
+
+  const total = await Cow.countDocuments(whereConditions);
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
+};
 // //# get a user
 // const getSingleUser = async (id: string): Promise<TCow | null> => {
 //   const SingleUser = await User.findById(id);
@@ -87,6 +111,7 @@ const createCow = async (cow: TCow): Promise<TCow | null> => {
 
 export const CowServices = {
   createCow,
+  getAllCows,
   // getAllUsers,
   // getSingleUser,
   // updateUser,

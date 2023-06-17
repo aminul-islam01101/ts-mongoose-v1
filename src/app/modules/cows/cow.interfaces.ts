@@ -33,3 +33,9 @@ export type TCow = {
   seller: Types.ObjectId | TUser;
 };
 export type CowModel = Model<TCow, Record<string, unknown>>;
+export type TCowFilters = {
+  searchTerm?: string;
+  location?: string;
+  maxPrice?: number;
+  minPrice?: number;
+};

@@ -2,11 +2,14 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 
 import catchAsync from '../../../utils/shared/helpers/catchAsync';
+import pick from '../../../utils/shared/helpers/pick';
 import sendResponse from '../../../utils/shared/helpers/sendResponse';
+import { paginationFields } from '../../../utils/shared/paginations/pagination.constants';
+import { cowFilterableFields } from './cow.constant';
 import { TCow } from './cow.interfaces';
 import { CowServices } from './cow.services';
 
-//% create user
+//% create cow
 const createCow = catchAsync(async (req: Request, res: Response) => {
   const cowData = req.body as TCow;
   const result = await CowServices.createCow(cowData);
@@ -18,17 +21,21 @@ const createCow = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-//% get  all users
-// const getAllUsers = catchAsync(async (req: Request, res: Response) => {
-//   const result = await CowServices.getAllUsers();
+//% get  all cows
+const getAllCows = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, cowFilterableFields);
+  const paginationOptions = pick(req.query, paginationFields);
 
-//   sendResponse<TCow[]>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Users retrieved successfully !',
-//     data: result,
-//   });
-// });
+  const result = await CowServices.getAllCows(filters, paginationOptions);
+
+  sendResponse<TCow[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Cows retrieved successfully !',
+    meta: result.meta,
+    data: result.data,
+  });
+});
 // //% get  single user
 // const getSingleUser = catchAsync(async (req: Request, res: Response) => {
 //   const { id } = req.params;
@@ -71,7 +78,7 @@ const createCow = catchAsync(async (req: Request, res: Response) => {
 
 export const CowControllers = {
   createCow,
-  // getAllUsers,
+  getAllCows,
   // getSingleUser,
   // updateUser,
   // deleteUser,

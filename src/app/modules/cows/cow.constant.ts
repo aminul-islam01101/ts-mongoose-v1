@@ -21,3 +21,5 @@ export const breed: TBreed[] = [
 ];
 export const label: TLabel[] = ['for sale', 'sold out'];
 export const category: TCategory[] = ['Dairy', 'Beef', 'Dual Purpose'];
+export const cowFilterableFields = ['searchTerm', 'maxPrice', 'minPrice', 'location'];
+export const cowSearchableFields = ['location', 'breed', 'category'];
