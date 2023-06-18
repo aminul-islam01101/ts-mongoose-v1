@@ -10,8 +10,6 @@ import { HandleApiError } from '../../../utils/shared/errors/handleApiError';
 
 //# create a user
 const createUser = async (user: TUser): Promise<TUser | null> => {
-  logger.warn('rest', { f: path.basename(__filename), l: 0 });
-
   const createdUser = await User.create(user);
 
   if (!createdUser) {

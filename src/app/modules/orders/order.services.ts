@@ -15,6 +15,12 @@ const createOrder = async (order: TOrderRequest): Promise<TOrder | null> => {
   const cow = (await Cow.findById(order.cow)) as TCow;
   const buyer = (await User.findById(order.buyer)) as TUser;
 
+  if (!cow) {
+    throw new HandleApiError(httpStatus.NOT_FOUND, 'Cow is not found !');
+  }
+  if (!buyer) {
+    throw new HandleApiError(httpStatus.NOT_FOUND, 'Buyer is not found !');
+  }
   if (cow.label === 'sold out') {
     throw new HandleApiError(httpStatus.BAD_REQUEST, 'Cow is sold !');
   }
