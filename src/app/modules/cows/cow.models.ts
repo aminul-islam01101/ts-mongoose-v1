@@ -29,14 +29,5 @@ export const userSchema = new Schema<TCow>(
     },
   }
 );
-// userSchema.pre('save', async function preSaveHook(next: CallbackWithoutResultAndOptionalError) {
-//   const User = this.constructor as CowModel;
-//   const isExist = await User.findOne({
-//     phoneNumber: this.phoneNumber,
-//   });
-//   if (isExist) {
-//     throw new HandleApiError(httpStatus.CONFLICT, 'phoneNumber is already exist!');
-//   }
-//   next();
-// });
+
 export const Cow = model<TCow, CowModel>('Cow', userSchema);
