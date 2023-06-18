@@ -22,6 +22,7 @@ noSQL-hamba-hut-server
 * GET:  /api/v1/cows?minPrice=20000&maxPrice=70000
 * GET:  /api/v1/cows?location=Comilla
 * GET:  /api/v1/cows?searchTerm=raj
+* GET:  /api/v1/cows?limit=5&location=Comilla&sortBy=price&sortOrder=1&minPrice=80000
 ## Orders
 * POST: /api/v1/orders
 * GET:  /api/v1/orders
