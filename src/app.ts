@@ -11,7 +11,6 @@ import { mongoDbUrl } from './utils/configs/db';
 
 import globalErrorHandler from './utils/middlewares/globalErrorHandler';
 import { requestLogger } from './utils/middlewares/requestLogger';
-import { HandleApiError } from './utils/shared/errors/handleApiError';
 import { ln, logger } from './utils/shared/logger';
 
 const app: Application = express();
@@ -51,13 +50,16 @@ app.set('trust proxy', 1);
 //   throw new HandleApiError(400, 'test error');
 // });
 
-
-
-
-
 app.get('/', (_req, res) => {
   res.send('test server is running');
 });
+
+
+
+
+
+
+
 // business routes
 app.use('/api/v1', routes);
 
