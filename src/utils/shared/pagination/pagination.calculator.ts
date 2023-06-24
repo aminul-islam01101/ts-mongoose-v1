@@ -1,7 +1,7 @@
 import { SortOrder } from 'mongoose';
 import { TPaginationOptions, TPaginationResult, TSortConditions } from '../types/paginationTypes';
 
-export const calculatePagination = (options: TPaginationOptions): TPaginationResult => {
+export const calculatePagination = (options: Partial<TPaginationOptions>): TPaginationResult => {
   const page = Number(options.page || 1);
   const limit = Number(options.limit || 10);
   const skip = (page - 1) * limit;
@@ -17,7 +17,10 @@ export const calculatePagination = (options: TPaginationOptions): TPaginationRes
     sortOrder,
   };
 };
-export const sortConditionSetter = (sortBy: string, sortOrder: SortOrder): TSortConditions => {
+export const sortConditionSetter = (
+  sortBy: string | undefined,
+  sortOrder: SortOrder | undefined
+): TSortConditions => {
   const sortConditions: TSortConditions = {};
 
   if (sortBy && sortOrder) {

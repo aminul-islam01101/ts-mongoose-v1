@@ -11,7 +11,6 @@ import { mongoDbUrl } from './utils/configs/db';
 
 import globalErrorHandler from './utils/middlewares/globalErrorHandler';
 import { requestLogger } from './utils/middlewares/requestLogger';
-import { HandleApiError } from './utils/shared/errors/handleApiError';
 import { ln, logger } from './utils/shared/logger';
 
 const app: Application = express();
@@ -45,17 +44,15 @@ app.use(
 );
 app.set('trust proxy', 1);
 
-//& route base
+//# route base
 // home route
-// app.get('/', (_req, res) => {
-//   throw new HandleApiError(400, 'test error');
-// });
 app.get('/', (_req, res) => {
   res.send('test server is running');
 });
 // business routes
 app.use('/api/v1', routes);
 
+//# error handler
 // global error handler
 app.use(globalErrorHandler);
 // wrong path error route
@@ -71,15 +68,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     ],
   });
   next();
-});
-
-// server error route
-app.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
-  if (res.headersSent) {
-    return next(err);
-  }
-
-  return res.status(500).send('Something broke in server!');
 });
 
 export default app;

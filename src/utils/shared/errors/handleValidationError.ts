@@ -13,7 +13,7 @@ const handleValidationError = (error: mongoose.Error.ValidationError): TGenericE
   const statusCode = 400;
   return {
     statusCode,
-    message: 'Validation Error',
+    errorName: 'Mongoose Validation Error',
     errorMessages: errors,
   };
 };

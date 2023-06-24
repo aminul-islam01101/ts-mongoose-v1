@@ -12,7 +12,7 @@ const handleDuplicateKeyError = (error: MongoServerError) => {
   const statusCode = 400;
   return {
     statusCode,
-    message: 'DuplicateKeyError',
+    errorName: 'DuplicateKeyError',
     errorMessages: errors,
   };
 };

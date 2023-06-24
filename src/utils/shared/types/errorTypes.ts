@@ -5,6 +5,6 @@ export type TGenericErrorMessage = {
 
 export type TGenericErrorResponse = {
   statusCode: number;
-  message: string;
+  errorName: string;
   errorMessages: TGenericErrorMessage[];
 };

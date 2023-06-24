@@ -7,5 +7,4 @@ export const configs = {
   port: process.env.PORT,
   env: process.env.NODE_ENV,
   databaseUrl: process.env.DATABASE_URL,
-  default_user_pass: process.env.DEFAULT_USER_PASS,
 };
