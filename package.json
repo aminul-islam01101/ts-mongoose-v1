@@ -1,5 +1,5 @@
 {
-  "name": "nosql-hamba-hut-server",
+  "name": "v4-auth",
   "version": "1.0.0",
   "main": "src/server.ts",
   "license": "MIT",
