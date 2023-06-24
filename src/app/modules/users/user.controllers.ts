@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import { RequestHandler } from 'express-serve-static-core';
 import httpStatus from 'http-status';
 
-import catchAsync from '../../../utils/shared/catchAsync';
-import sendResponse from '../../../utils/shared/sendResponse';
+import catchAsync from '../../../utils/shared/helpers/catchAsync';
+import sendResponse from '../../../utils/shared/helpers/sendResponse';
 import { TUser } from './user.interfaces';
 import { UserServices } from './user.services';
 
