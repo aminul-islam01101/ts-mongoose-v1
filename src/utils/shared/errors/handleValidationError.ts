@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { TGenericErrorMessage, TGenericErrorResponse } from '../types/errorTypes';
+import { TGenericErrorMessage, TGenericErrorResponse } from '../sharedInterfaces';
 
 const handleValidationError = (error: mongoose.Error.ValidationError): TGenericErrorResponse => {
   const errors: TGenericErrorMessage[] = Object.values(error.errors).map(

@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
 import { CallbackWithoutResultAndOptionalError, Schema, model } from 'mongoose';
-import { HandleApiError } from '../../../utils/shared/errors/handleApiError';
+import HandleApiError from '../../../utils/shared/errors/handleApiError';
 import { TUser, UserModel } from './user.interfaces';
 
 export const userSchema = new Schema<TUser>(

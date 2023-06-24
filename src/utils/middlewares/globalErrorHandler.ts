@@ -6,12 +6,11 @@ import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
 
 import { configs } from '../configs/envConfigs';
-import { HandleApiError } from '../shared/errors/handleApiError';
-import handleCastError from '../shared/errors/handleCastError';
+import HandleApiError from '../shared/errors/handleApiError';
 import handleValidationError from '../shared/errors/handleValidationError';
 import handleZodError from '../shared/errors/handleZodError';
 import { errorLogger } from '../shared/logger';
-import { TGenericErrorMessage } from '../shared/types/errorTypes';
+import { TGenericErrorMessage } from '../shared/sharedInterfaces';
 
 const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   if (configs.env === 'development') {
@@ -39,16 +38,8 @@ const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
     message = simplifiedError.message;
     errorMessages = simplifiedError.errorMessages;
 
-    // handleCastError error handler
-  } else if (error?.name === 'CastError') {
-    const simplifiedError = handleCastError(error);
-    statusCode = simplifiedError.statusCode;
-    message = simplifiedError.message;
-    errorMessages = simplifiedError.errorMessages;
-  }
-
-  // api error handler
-  else if (error instanceof HandleApiError) {
+    // api error handler
+  } else if (error instanceof HandleApiError) {
     statusCode = error?.statusCode;
     message = error.message;
     errorMessages = error?.message

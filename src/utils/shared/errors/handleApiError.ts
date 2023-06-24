@@ -12,4 +12,4 @@ class HandleApiError extends Error {
   }
 }
 
-export { HandleApiError };
+export default HandleApiError;
