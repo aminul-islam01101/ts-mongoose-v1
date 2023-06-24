@@ -54,12 +54,7 @@ app.get('/', (_req, res) => {
   res.send('test server is running');
 });
 
-
-
-
-
-
-
+// for husky test
 // business routes
 app.use('/api/v1', routes);
 
