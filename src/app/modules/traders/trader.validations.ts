@@ -6,7 +6,7 @@ const createUserZodSchema = z
       password: z
         .string({ required_error: 'password is required' })
         .min(6, 'Password must be at least 6 characters long'),
-      role: z.enum(['seller', 'buyer'], {
+      role: z.enum(['seller', 'buyer', 'admin'], {
         required_error: 'Role is required',
       }),
       name: z.object({
@@ -27,15 +27,19 @@ const createUserZodSchema = z
       address: z.string({
         required_error: 'address is required',
       }),
-      budget: z.number(),
+      budget: z.number().optional(),
 
-      income: z.number().refine((value) => value === 0, 'Invalid income value'),
+      income: z
+        .number()
+        .refine((value) => value === 0, 'Invalid income value')
+        .optional(),
     }),
   })
   .refine(
     (data) =>
-      (data.body.role === 'buyer' && data.body.budget > 0) ||
-      (data.body.role === 'seller' && data.body.budget === 0),
+      (data.body.role === 'buyer' && data?.body?.budget) ||
+      (data.body.role === 'seller' && data.body.budget === 0) ||
+      data.body.role === 'admin',
     {
       message: 'invalid budget value',
     }

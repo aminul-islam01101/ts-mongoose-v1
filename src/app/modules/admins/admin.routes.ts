@@ -1,23 +1,22 @@
 import express from 'express';
 
 import zodValidator from '../../../utils/middlewares/zodValidator';
-
-import { UserControllers } from './user.controllers';
-import { UserValidations } from './user.validations';
+import { AdminControllers } from './admin.controllers';
+import { AdminValidations } from './admin.validations';
 
 const router = express.Router();
 
 router.post(
-  '/auth/signup',
-  zodValidator(UserValidations.createUserZodSchema),
-  UserControllers.createUser
+  '/create-admin',
+  zodValidator(AdminValidations.createAdminZodSchema),
+  AdminControllers.createAdmin
 );
-router
-  .route('/:id')
-  .get(UserControllers.getSingleUser)
-  .patch(zodValidator(UserValidations.updateUserZodSchema), UserControllers.updateUser)
-  .delete(UserControllers.deleteUser);
-router.get('/', UserControllers.getAllUsers);
+router.post('/login', zodValidator(AdminValidations.loginZodSchema), AdminControllers.loginAdmin);
+router.post(
+  '/refresh-token',
+  zodValidator(AdminValidations.refreshTokenZodSchema),
+  AdminControllers.getAccessTokenByRefreshToken
+);
 
 //% formate
 // router.route('/create-user',).post(
@@ -29,4 +28,4 @@ router.get('/', UserControllers.getAllUsers);
 
 // router.route('/').get(productController.getProducts).post(productController.createProduct);
 
-export const UserRoutes = router;
+export const AdminRoutes = router;

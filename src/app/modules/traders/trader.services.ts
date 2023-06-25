@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import httpStatus from 'http-status';
 
-import { TUser } from './user.interfaces';
-import { User } from './user.models';
+import { TUser } from './trader.interfaces';
+import { User } from './trader.models';
 
 import { HandleApiError } from '../../../utils/shared/errors/handleApiError';
 

@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import { CallbackWithoutResultAndOptionalError, Schema, model } from 'mongoose';
 import { HandleApiError } from '../../../utils/shared/errors/handleApiError';
-import { TUser, UserModel } from './user.interfaces';
+import { TUser, UserModel } from './trader.interfaces';
 
 export const userSchema = new Schema<TUser>(
   {
@@ -11,7 +11,7 @@ export const userSchema = new Schema<TUser>(
     },
     role: {
       type: String,
-      enum: ['seller', 'buyer'],
+      enum: ['seller', 'buyer', 'admin'],
       required: true,
     },
     name: {
@@ -34,11 +34,12 @@ export const userSchema = new Schema<TUser>(
     },
     budget: {
       type: Number,
-      required: true,
+      // required: true,
     },
     income: {
       type: Number,
-      default: 0,
+      // required: true,
+      // default: 0,
     },
   },
   {

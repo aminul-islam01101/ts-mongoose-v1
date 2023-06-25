@@ -3,8 +3,8 @@ import httpStatus from 'http-status';
 
 import catchAsync from '../../../utils/shared/helpers/catchAsync';
 import sendResponse from '../../../utils/shared/helpers/sendResponse';
-import { TUser } from './user.interfaces';
-import { UserServices } from './user.services';
+import { TUser } from './trader.interfaces';
+import { UserServices } from './trader.services';
 
 //% create user
 const createUser = catchAsync(async (req: Request, res: Response) => {

@@ -6,6 +6,7 @@ import session from 'express-session';
 
 import httpStatus from 'http-status';
 import path from 'path';
+import cookieParser from 'cookie-parser';
 import routes from './app/routes';
 import { mongoDbUrl } from './utils/configs/db';
 
@@ -14,6 +15,7 @@ import { requestLogger } from './utils/middlewares/requestLogger';
 import { ln, logger } from './utils/shared/logger';
 
 const app: Application = express();
+app.use(cookieParser());
 
 logger.warn('test Log', { f: path.basename(__filename), l: ln() });
 
@@ -21,6 +23,7 @@ logger.warn('test Log', { f: path.basename(__filename), l: ln() });
 app.use(
   cors({
     origin: process.env.CLIENT,
+    // origin: process.env.CLIENT,
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
     allowedHeaders: ['Content-Type'],

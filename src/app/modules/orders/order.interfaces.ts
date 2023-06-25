@@ -1,6 +1,6 @@
 import { Model, Types } from 'mongoose';
 import { TCow } from '../cows/cow.interfaces';
-import { TUser } from '../users/user.interfaces';
+import { TUser } from '../traders/trader.interfaces';
 
 export type TOrderRequest = {
   buyer: Types.ObjectId | TUser;

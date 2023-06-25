@@ -12,8 +12,8 @@ import {
 } from '../../../utils/shared/pagination/pagination.calculator';
 import { TPaginationOptions } from '../../../utils/shared/types/paginationTypes';
 import { TGenericResponse } from '../../../utils/shared/types/responseTypes';
-import { TUser } from '../users/user.interfaces';
-import { User } from '../users/user.models';
+import { TUser } from '../traders/trader.interfaces';
+import { User } from '../traders/trader.models';
 import { cowSearchableFields } from './cow.constant';
 
 //# create a user

@@ -5,8 +5,8 @@ import mongoose from 'mongoose';
 import { HandleApiError } from '../../../utils/shared/errors/handleApiError';
 import { TCow } from '../cows/cow.interfaces';
 import { Cow } from '../cows/cow.models';
-import { TUser } from '../users/user.interfaces';
-import { User } from '../users/user.models';
+import { TUser } from '../traders/trader.interfaces';
+import { User } from '../traders/trader.models';
 import { TOrder, TOrderRequest } from './order.interfaces';
 import { Order } from './order.models';
 
