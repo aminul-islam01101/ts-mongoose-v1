@@ -1,20 +1,20 @@
 // export the app
-import MongoStore from 'connect-mongo';
 import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
-import session from 'express-session';
+import passport from 'passport';
 
+import cookieParser from 'cookie-parser';
 import httpStatus from 'http-status';
 import path from 'path';
-import cookieParser from 'cookie-parser';
 import routes from './app/routes';
-import { mongoDbUrl } from './utils/configs/db';
 
 import globalErrorHandler from './utils/middlewares/globalErrorHandler';
 import { requestLogger } from './utils/middlewares/requestLogger';
 import { ln, logger } from './utils/shared/logger';
+import './utils/configs/passportConfigs';
 
 const app: Application = express();
+app.use(passport.initialize());
 app.use(cookieParser());
 
 logger.warn('test Log', { f: path.basename(__filename), l: ln() });
@@ -32,19 +32,19 @@ app.use(
 app.use([express.json(), express.urlencoded({ extended: true }), requestLogger]);
 
 // configure session
-app.use(
-  session({
-    secret: 'cat',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: mongoDbUrl,
-      dbName: 'fullBack',
-      collectionName: 'sessions',
-      ttl: 60 * 60, // expire after 1 hour (in seconds)
-    }),
-  })
-);
+// app.use(
+//   session({
+//     secret: 'cat',
+//     resave: false,
+//     saveUninitialized: false,
+//     store: MongoStore.create({
+//       mongoUrl: mongoDbUrl,
+//       dbName: 'fullBack',
+//       collectionName: 'sessions',
+//       ttl: 60 * 60, // expire after 1 hour (in seconds)
+//     }),
+//   })
+// );
 app.set('trust proxy', 1);
 
 //# route base
