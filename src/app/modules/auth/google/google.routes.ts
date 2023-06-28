@@ -3,10 +3,12 @@ import express from 'express';
 import passport from 'passport';
 import { GoogleControllers } from './google.controller';
 import { GoogleConfigs } from '../../../../utils/configs/googleConfigs';
+import { GoogleConfigs2 } from '../../../../utils/configs/googleConfigs2';
 
 const router = express.Router();
 
 router.get('/google', GoogleConfigs.getAccess);
+router.post('/google2', GoogleConfigs2.getAccess);
 
 router.get('/google/callback', GoogleConfigs.getRedirect);
 // router.get(

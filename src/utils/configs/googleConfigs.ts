@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import axios from 'axios';
 import { Request, Response } from 'express';
 
 import { google } from 'googleapis';
+import httpStatus from 'http-status';
+import { HandleApiError } from '../shared/errors/handleApiError';
 import { configs } from './envConfigs';
 
 const { OAuth2 } = google.auth;
@@ -108,10 +111,26 @@ const getRedirect = async (req: Request, res: Response): Promise<void> => {
 
   const accessToken: string | null | undefined = tokens.access_token;
   const refreshToken: string | null | undefined = tokens.refresh_token;
+  oauth2Client.setCredentials({
+    refresh_token: refreshToken,
+  });
 
-  const at = await refreshAccessToken(refreshToken as string);
+  // const at = await refreshAccessToken(refreshToken as string);
 
-  console.log({ accessToken }, { at });
+  try {
+    const data = await oauth2Client.refreshAccessToken();
+  } catch (error: any) {
+    if (error.code === 'invalid_grant') {
+      // Refresh token expired
+      res.redirect(
+        'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?access_type=offline&include_granted_scopes=true&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&client_id=376922281242-mo54dmqkva2hkbfb4rq7tlsk4rmlg45b.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fcallback&service=lso&o2v=2&flowName=GeneralOAuthFlow'
+      );
+    } else {
+      throw new HandleApiError(httpStatus.BAD_REQUEST, 'Error refreshing access token');
+    }
+  }
+
+  // console.log({ accessToken }, { at });
 
   let accountInfo: AccountInfo | null = null;
   if (accessToken) {
@@ -126,7 +145,8 @@ const getRedirect = async (req: Request, res: Response): Promise<void> => {
   };
 
   res.cookie('refreshToken', refreshToken, cookieOptions);
-  res.redirect('http://localhost:3000');
+
+  res.redirect(`http://localhost:3000?accessToken=${accessToken as string}`);
 };
 
 // create event
@@ -161,7 +181,13 @@ const getAccess = (req: Request, res: Response) => {
     access_type: 'offline',
     include_granted_scopes: true,
     scope: scopes,
+    prompt: 'consent',
     // state: JSON.stringify({ email }),
+  });
+  res.set({
+    'Access-Control-Allow-Origin': ['http://localhost:3000'], // Replace with your React application's domain
+    'Access-Control-Allow-Methods': 'POST',
+    'Access-Control-Allow-Headers': 'Content-Type',
   });
 
   res.redirect(url);

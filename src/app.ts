@@ -8,25 +8,25 @@ import httpStatus from 'http-status';
 import path from 'path';
 import routes from './app/routes';
 
+import './utils/configs/passportConfigs';
 import globalErrorHandler from './utils/middlewares/globalErrorHandler';
 import { requestLogger } from './utils/middlewares/requestLogger';
 import { ln, logger } from './utils/shared/logger';
-import './utils/configs/passportConfigs';
 
 const app: Application = express();
 app.use(passport.initialize());
 app.use(cookieParser());
 
 logger.warn('test Log', { f: path.basename(__filename), l: ln() });
-
+console.log(process.env.CLIENT);
 // middleware :cors
 app.use(
   cors({
     origin: process.env.CLIENT,
-    // origin: process.env.CLIENT,
+
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
-    allowedHeaders: ['Content-Type'],
+    allowedHeaders: ['X-Requested-With', 'content-type', 'credentials'],
   })
 );
 app.use([express.json(), express.urlencoded({ extended: true }), requestLogger]);
