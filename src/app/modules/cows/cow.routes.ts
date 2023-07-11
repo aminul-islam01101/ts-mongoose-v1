@@ -1,40 +1,23 @@
 import express from 'express';
 
+import roleVerifier from '../../../utils/middlewares/roleVerifier';
 import zodValidator from '../../../utils/middlewares/zodValidator';
+import { EnumUserRole } from '../../../utils/shared/enum';
 import { CowControllers } from './cow.controllers';
 import { CowValidations } from './cow.validations';
 
 const router = express.Router();
+const { createCow, updateCow, deleteCow, getSingleCow, getAllCows } = CowControllers;
+const { createCowZodSchema, updateCowZodSchema } = CowValidations;
+const { SELLER, BUYER, ADMIN } = EnumUserRole;
 
-// router
-//   .route('/:id')
-//   .get(UserControllers.getSingleUser)
-//   .patch(zodValidator(UserValidations.updateUserZodSchema), UserControllers.updateUser)
-//   .delete(UserControllers.deleteUser);
-
-router.post('/', zodValidator(CowValidations.createCowZodSchema), CowControllers.createCow);
+router.post('/', zodValidator(createCowZodSchema), roleVerifier(SELLER), createCow);
 router
   .route('/:id')
-  .get(CowControllers.getSingleCow)
-  .patch(zodValidator(CowValidations.updateCowZodSchema), CowControllers.updateCow)
-  .delete(CowControllers.deleteCow);
+  .get(roleVerifier(SELLER, BUYER, ADMIN), getSingleCow)
+  .patch(zodValidator(updateCowZodSchema), roleVerifier(SELLER), updateCow)
+  .delete(roleVerifier(SELLER), deleteCow);
 
-router.get('/', CowControllers.getAllCows);
-// router
-//   .route('/:id')
-//   .get(UserControllers.getSingleUser)
-//   .patch(zodValidator(UserValidation.updateUserZodSchema), UserControllers.updateUser)
-//   .delete(UserControllers.deleteUser);
-// router.get('/', UserControllers.getAllUsers);
-
-//% formate
-// router.route('/create-user',).post(
-
-//   zodValidator(UserValidation.createUserZodSchema),
-//   UserControllers.createUser
-// router.route('/bulk-update').patch(productController.bulkUpdateProduct);
-// router.route('/bulk-delete').delete(productController.bulkDeleteProduct);
-
-// router.route('/').get(productController.getProducts).post(productController.createProduct);
+router.get('/', roleVerifier(SELLER, BUYER, ADMIN), getAllCows);
 
 export const CowRoutes = router;

@@ -2,10 +2,11 @@ import colors from '@colors/colors';
 import 'dotenv/config';
 import { Server } from 'http';
 import app from './app';
-import { connectDataBase as connect } from './utils/configs/db';
-import { configs } from './utils/configs/envConfigs';
+import { connectDataBase as connect } from './utils/configs/db.configs';
+import { configs } from './utils/configs/env.configs';
 import { errorLogger, logger } from './utils/shared/logger';
 
+// husky test
 // Handle uncaughtException
 process.on('uncaughtException', (error) => {
   console.log('uncaughtException detected'.red);

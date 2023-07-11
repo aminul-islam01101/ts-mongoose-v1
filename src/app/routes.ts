@@ -1,12 +1,18 @@
 import express from 'express';
 
+import { AdminRoutes } from './modules/admins/admin.routes';
 import { CowRoutes } from './modules/cows/cow.routes';
-import { UserRoutes } from './modules/users/user.routes';
 import { OrderRoutes } from './modules/orders/order.routes';
+import { UserRoutes } from './modules/traders/trader.routes';
+import AuthRoutes from './modules/auth/auth.routes';
 
 const routes = express.Router();
 
 const moduleRoutes = [
+  {
+    path: '/auth',
+    route: AuthRoutes,
+  },
   {
     path: '/users',
     route: UserRoutes,
@@ -18,6 +24,10 @@ const moduleRoutes = [
   {
     path: '/orders',
     route: OrderRoutes,
+  },
+  {
+    path: '/admins',
+    route: AdminRoutes,
   },
 ];
 

@@ -1,5 +1,5 @@
 import { Model, Types } from 'mongoose';
-import { TUser } from '../users/user.interfaces';
+import { TUser } from '../traders/trader.interfaces';
 
 export type TLocation =
   | 'Dhaka'

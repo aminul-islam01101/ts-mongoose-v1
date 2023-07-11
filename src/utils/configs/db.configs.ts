@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { errorLogger } from '../shared/logger';
-import { configs } from './envConfigs';
+import { configs } from './env.configs';
 
 mongoose.set('strictQuery', true);
 

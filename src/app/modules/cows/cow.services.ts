@@ -12,8 +12,9 @@ import {
 } from '../../../utils/shared/paginations/pagination.calculator';
 import { TPaginationOptions } from '../../../utils/shared/types/paginationTypes';
 import { TGenericResponse } from '../../../utils/shared/types/responseTypes';
-import { TUser } from '../users/user.interfaces';
-import { User } from '../users/user.models';
+
+import { TUser } from '../traders/trader.interfaces';
+import { User } from '../traders/trader.models';
 import { cowSearchableFields } from './cow.constant';
 
 //# create a user
@@ -80,9 +81,9 @@ const updateCow = async (id: string, payload: Partial<TCow>): Promise<TCow | nul
 
   // const updatedCowData: Partial<TCow> = { ...cowData };
 
-  // if (updatedCowData.phoneNumber !== undefined) {
-  //   const isPhoneExist = await Cow.findOne({ phoneNumber: updatedCowData.phoneNumber });
-  //   if (isPhoneExist) {
+  // if (updatedCowData.email !== undefined) {
+  //   const isEmailExist = await Cow.findOne({ email: updatedCowData.email });
+  //   if (isEmailExist) {
   //     throw new HandleApiError(httpStatus.BAD_REQUEST, 'This phone number is already exist !');
   //   }
   // }

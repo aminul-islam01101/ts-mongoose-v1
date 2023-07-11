@@ -51,7 +51,7 @@
     "spaced-comment": [
       "error",
       "always",
-      { "markers": ["!", "*", "?", "$", "#", "@", "&", "%", "g"] }
+      { "markers": ["!", "*", "?", "$", "#", "@", "&", "%", "g","FIX-ME"] }
     ],
 
     "prettier/prettier": [

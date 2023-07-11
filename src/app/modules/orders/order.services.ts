@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import httpStatus from 'http-status';
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
+import { JwtPayload } from 'jsonwebtoken';
 import { HandleApiError } from '../../../utils/shared/errors/handleApiError';
 import { TCow } from '../cows/cow.interfaces';
 import { Cow } from '../cows/cow.models';
-import { TUser } from '../users/user.interfaces';
-import { User } from '../users/user.models';
+
+import { TUser } from '../traders/trader.interfaces';
+import { User } from '../traders/trader.models';
 import { TOrder, TOrderRequest } from './order.interfaces';
 import { Order } from './order.models';
 
@@ -49,7 +51,7 @@ const createOrder = async (order: TOrderRequest): Promise<TOrder | null> => {
     }
 
     const updatedBuyerBudget = await User.updateOne(
-      { _id: order.buyer },
+      { _id: order.buyer as TUser },
       [
         {
           $set: {
@@ -65,7 +67,7 @@ const createOrder = async (order: TOrderRequest): Promise<TOrder | null> => {
       throw new HandleApiError(400, 'Failed to Update budget');
     }
     const updatedSellerIncome = await User.updateOne(
-      { id: cow.seller },
+      { id: cow.seller as TUser },
       [
         {
           $set: {
@@ -81,7 +83,7 @@ const createOrder = async (order: TOrderRequest): Promise<TOrder | null> => {
       throw new HandleApiError(400, 'Failed to Update income');
     }
     const copiedOrder = { ...order } as TOrder;
-    copiedOrder.seller = cow.seller;
+    copiedOrder.seller = cow.seller as TUser;
     const [createOrderForSale] = await Order.create([copiedOrder], { session });
     if (!createOrderForSale) {
       throw new HandleApiError(400, 'Failed to create order');
@@ -109,13 +111,63 @@ const createOrder = async (order: TOrderRequest): Promise<TOrder | null> => {
   return updatedData;
 };
 // //# get all orders
-const getAllOrders = async (): Promise<TOrder[] | null> => {
-  const allOrders = await Order.find({});
+const getAllOrders = async (user: JwtPayload): Promise<TOrder[] | TOrder | null> => {
+  let allOrders = null;
+  if (user.role === 'admin') {
+    allOrders = await Order.find({}).populate('seller').populate('buyer').populate('cow');
+  }
+  if (user.role === 'buyer') {
+    allOrders = await Order.find({ buyer: user.id as Schema.Types.ObjectId })
+      .populate('seller')
+      .populate('buyer')
+      .populate('cow');
+  }
+  if (user.role === 'seller') {
+    allOrders = await Order.findOne({ seller: user.id as Schema.Types.ObjectId })
+      .populate('seller')
+      .populate('buyer')
+      .populate('cow');
+  }
 
   return allOrders;
+};
+// //# get single orders
+const getSingleOrder = async (user: JwtPayload, id: string): Promise<TOrder | null> => {
+  const order = await Order.findById(id)
+    .populate('seller')
+    .populate('buyer')
+    .populate('cow')
+    .lean();
+  console.log('🚀 ~ file: order.services.ts:135 ~ getSingleOrder ~ order:', order);
+  if (!order) {
+    throw new HandleApiError(httpStatus.NOT_FOUND, 'NO order found');
+  }
+
+  if (user.role === 'admin') {
+    return order;
+  }
+
+  if (user.role === 'buyer') {
+    if (user.id !== order.buyer._id.toString()) {
+      throw new HandleApiError(
+        httpStatus.UNAUTHORIZED,
+        'You are not authorized to access this order'
+      );
+    } else return order;
+  }
+  if (user.role === 'seller') {
+    if (user.id !== order.seller._id.toString()) {
+      throw new HandleApiError(
+        httpStatus.UNAUTHORIZED,
+        'You are not authorized to access this order'
+      );
+    } else return order;
+  }
+  return null;
 };
 
 export const OrderServices = {
   createOrder,
   getAllOrders,
+  getSingleOrder,
 };

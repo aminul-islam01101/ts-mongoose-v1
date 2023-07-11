@@ -17,12 +17,11 @@ const createUserZodSchema = z
           required_error: 'Last name is required',
         }),
       }),
-      phoneNumber: z
-        .string({
-          required_error: 'Phone number is required',
-        })
-        .min(11, 'Phone number must be 11 digits.')
-        .max(11, 'Phone number must be 11 digits.'),
+      email: z.string({
+        required_error: 'email is required',
+      }),
+      // .min(11, 'Phone number must be 11 digits.')
+      // .max(11, 'Phone number must be 11 digits.'),
 
       address: z.string({
         required_error: 'address is required',
@@ -55,7 +54,7 @@ const updateUserZodSchema = z
             lastName: z.string().optional(),
           })
           .optional(),
-        phoneNumber: z
+        email: z
           .string()
           .min(11, 'Phone number must be 11 digits.')
           .max(11, 'Phone number must be 11 digits.')
@@ -77,8 +76,29 @@ const updateUserZodSchema = z
       message: 'Invalid budget value',
     }
   );
+const updateMyProfileZodSchema = z.object({
+  body: z
+    .object({
+      password: z.string().min(6, 'Password must be at least 6 characters long').optional(),
+
+      name: z
+        .object({
+          firstName: z.string().optional(),
+          lastName: z.string().optional(),
+        })
+        .optional(),
+      email: z
+        .string()
+        .min(11, 'Phone number must be 11 digits.')
+        .max(11, 'Phone number must be 11 digits.')
+        .optional(),
+      address: z.string().optional(),
+    })
+    .optional(),
+});
 
 export const UserValidations = {
   createUserZodSchema,
   updateUserZodSchema,
+  updateMyProfileZodSchema,
 };

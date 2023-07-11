@@ -5,7 +5,7 @@ import { ErrorRequestHandler } from 'express';
 
 import { ZodError } from 'zod';
 
-import { configs } from '../configs/envConfigs';
+import { configs } from '../configs/env.configs';
 import { HandleApiError } from '../shared/errors/handleApiError';
 import handleCastError from '../shared/errors/handleCastError';
 import handleMissingSchemaError from '../shared/errors/handleMissingSchemaError';
@@ -16,7 +16,9 @@ import { TGenericErrorMessage } from '../shared/types/errorTypes';
 
 const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   if (configs.env === 'development') {
-    // console.log('🐱‍🏍 globalErrorHandler ~~', error);
+    console.log('🌼 ----------------------------------------------------------🌼');
+    console.log('🌼 🔥🔥 file: globalErrorHandler.ts:18 🔥🔥 error🌼', error);
+    console.log('🌼 ----------------------------------------------------------🌼');
     errorLogger.error(error);
   } else {
     errorLogger.error(error);
@@ -53,6 +55,8 @@ const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
     errorName = simplifiedError.errorName;
     errorMessages = simplifiedError.errorMessages;
   }
+
+  // if(error instanceof JsonWebTokenError){}
 
   // api error handler
   else if (error instanceof HandleApiError) {

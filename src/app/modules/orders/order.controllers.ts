@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 
+import { JwtPayload } from 'jsonwebtoken';
 import catchAsync from '../../../utils/shared/helpers/catchAsync';
 
 import sendResponse from '../../../utils/shared/helpers/sendResponse';
@@ -20,14 +21,26 @@ const createOrder = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-//% get  all cows
+//% get  all orders
 const getAllOrders = catchAsync(async (req: Request, res: Response) => {
-  const result = await OrderServices.getAllOrders();
+  const result = await OrderServices.getAllOrders(req.user as JwtPayload);
 
-  sendResponse<TOrder[]>(res, {
+  sendResponse<TOrder[] | TOrder>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Orders retrieved successfully !',
+    data: result,
+  });
+});
+//% get  single order
+const getSingleOrder = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await OrderServices.getSingleOrder(req.user as JwtPayload, id);
+
+  sendResponse<TOrder>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Order retrieved successfully !',
     data: result,
   });
 });
@@ -35,4 +48,5 @@ const getAllOrders = catchAsync(async (req: Request, res: Response) => {
 export const OrderControllers = {
   createOrder,
   getAllOrders,
+  getSingleOrder,
 };
