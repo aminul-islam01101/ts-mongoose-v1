@@ -2,7 +2,7 @@ import colors from '@colors/colors';
 import 'dotenv/config';
 import { Server } from 'http';
 import app from './app';
-import { connectDataBase as connect } from './utils/configs/db.configs';
+
 import { configs } from './utils/configs/env.configs';
 import { errorLogger, logger } from './utils/shared/logger';
 
@@ -16,9 +16,9 @@ process.on('uncaughtException', (error) => {
 
 let server: Server;
 
-const startServer = async () => {
+const startServer = () => {
   try {
-    await connect();
+    // await connect();
 
     server = app.listen(configs.port, () => {
       console.log(
@@ -46,10 +46,10 @@ const startServer = async () => {
     }
   });
 };
-
-startServer().catch((err) => {
-  errorLogger.error('Failed to connect database', err);
-});
+startServer();
+// startServer().catch((err) => {
+//   errorLogger.error('Failed to connect database', err);
+// });
 process.on('SIGTERM', () => {
   logger.info('SIGTERM is received');
   if (server) {

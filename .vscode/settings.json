@@ -20,7 +20,7 @@
     "source.organizeImports": true
   },
   "eslint.validate": ["typescript"],
-  "eslint.alwaysShowStatus": true,
+
   // emmet
   "emmet.triggerExpansionOnTab": true,
   "emmet.includeLanguages": {
@@ -28,10 +28,5 @@
     "typescript": "typescriptreact"
   },
   "cSpell.words": ["hamba", "nosql"],
-  
-  
-  
- 
-  
-
+  "editor.fontSize": 15
 }

@@ -1,4 +1,3 @@
-import { SortOrder } from 'mongoose';
 import { TPaginationOptions, TPaginationResult, TSortConditions } from '../types/paginationTypes';
 
 export const calculatePagination = (options: Partial<TPaginationOptions>): TPaginationResult => {
@@ -19,7 +18,7 @@ export const calculatePagination = (options: Partial<TPaginationOptions>): TPagi
 };
 export const sortConditionSetter = (
   sortBy: string | undefined,
-  sortOrder: SortOrder | undefined
+  sortOrder: string | undefined
 ): TSortConditions => {
   const sortConditions: TSortConditions = {};
 

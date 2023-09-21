@@ -116,13 +116,13 @@ if (env === 'production') {
 
 const logger = createLogger({
   level: 'silly',
-  format: combine(label({ label: 'web_reality' }), timestamp(), selectFormat()),
+  format: combine(label({ label: 'dev_reality' }), timestamp(), selectFormat()),
   transports: loggerTransports,
 });
 
 const errorLogger = createLogger({
   level: 'error',
-  format: combine(label({ label: 'web_reality' }), timestamp(), selectFormat()),
+  format: combine(label({ label: 'dev_reality' }), timestamp(), selectFormat()),
   transports: errorLoggerTransports,
 });
 

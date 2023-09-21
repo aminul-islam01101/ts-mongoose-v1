@@ -7,9 +7,7 @@ import { ZodError } from 'zod';
 
 import { configs } from '../configs/env.configs';
 import { HandleApiError } from '../shared/errors/handleApiError';
-import handleCastError from '../shared/errors/handleCastError';
-import handleMissingSchemaError from '../shared/errors/handleMissingSchemaError';
-import handleValidationError from '../shared/errors/handleValidationError';
+
 import handleZodError from '../shared/errors/handleZodError';
 import { errorLogger } from '../shared/logger';
 import { TGenericErrorMessage } from '../shared/types/errorTypes';
@@ -29,31 +27,13 @@ const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   let errorMessages: TGenericErrorMessage[] = [];
 
   // mongoose validation error handler
-  if (error?.name === 'ValidationError') {
-    const simplifiedError = handleValidationError(error);
-    statusCode = simplifiedError.statusCode;
-    errorName = simplifiedError.errorName;
-    errorMessages = simplifiedError.errorMessages;
-
-    // zodValidator error handler
-  } else if (error instanceof ZodError) {
+  if (error instanceof ZodError) {
     const simplifiedError = handleZodError(error);
     statusCode = simplifiedError.statusCode;
     errorName = simplifiedError.errorName;
     errorMessages = simplifiedError.errorMessages;
 
     // handleCastError error handler
-  } else if (error?.name === 'CastError') {
-    const simplifiedError = handleCastError(error);
-    statusCode = simplifiedError.statusCode;
-    errorName = simplifiedError.errorName;
-    errorMessages = simplifiedError.errorMessages;
-  } else if (error?.name === 'MissingSchemaError') {
-    // res.status(200).json({error})
-    const simplifiedError = handleMissingSchemaError(error);
-    statusCode = simplifiedError.statusCode;
-    errorName = simplifiedError.errorName;
-    errorMessages = simplifiedError.errorMessages;
   }
 
   // if(error instanceof JsonWebTokenError){}
